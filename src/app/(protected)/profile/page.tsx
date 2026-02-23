@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAuthStore } from "@/store/auth.store";
 import { useUserBlogs } from "@/features/blogs/blog.hooks";
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
+import { useLogout } from "@/features/auth/auth.hooks";
 import {
   Calendar,
   FileText,
@@ -11,11 +12,10 @@ import {
   MessageCircle,
   Edit3,
   Mail,
-  User,
   Sparkles,
   TrendingUp,
   Clock,
-  Settings,
+  LogOut,
   Eye,
 } from "lucide-react";
 
@@ -32,11 +32,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { BlogCardSkeleton } from "@/features/blogs/components/blog.skeleton";
 import { BlogCard } from "@/features/blogs/components/blog.card";
 
 export default function ProfilePage() {
   const { user } = useAuthStore();
+  const logout = useLogout();
   const { data: blogs, isLoading } = useUserBlogs();
 
   const getInitials = (name: string) => {
@@ -60,16 +72,23 @@ export default function ProfilePage() {
     0,
   );
 
-  const totalViews = totalLikes * 10;
+  // Calculate engagement rate
+  const totalViews = totalLikes * 10; // Approximate views based on likes
   const engagementRate =
     totalViews > 0 ? Math.round((totalLikes / totalViews) * 100) : 0;
 
-  const joinDate = new Date(2024, 0, 15);
+  // Get join date (mock for now - in real app would come from user object)
+  const joinDate = new Date(2024, 0, 15); // Example date
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
         <div className="max-w-7xl mx-auto py-8 px-4">
+          {/* Profile Header Skeleton */}
           <Card className="mb-8 overflow-hidden">
             <CardContent className="pt-6">
               <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
@@ -87,12 +106,14 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
 
+          {/* Stats Skeleton */}
           <div className="grid gap-6 md:grid-cols-4 mb-8">
             {[1, 2, 3, 4].map((i) => (
               <Skeleton key={i} className="h-24 rounded-lg" />
             ))}
           </div>
 
+          {/* Tabs Skeleton */}
           <Skeleton className="h-10 w-64 mb-6" />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => (
@@ -107,15 +128,21 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        {/* Profile Header */}
         <Card className="relative overflow-hidden mb-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-xl">
+          {/* Decorative Elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-200/20 dark:bg-indigo-500/10 rounded-full blur-3xl" />
 
           <CardContent className="relative pt-8">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
+              {/* Avatar with ring */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur-md opacity-50 animate-pulse" />
                 <Avatar className="h-28 w-28 ring-4 ring-white dark:ring-gray-800 relative">
+                  <AvatarImage
+                    src={`https://avatar.vercel.sh/${user?.email}`}
+                  />
                   <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-3xl">
                     {user?.name ? getInitials(user.name) : "U"}
                   </AvatarFallback>
@@ -135,29 +162,42 @@ export default function ProfilePage() {
                     </div>
                   </div>
 
-                  <div className="flex gap-3">
-                    <Button
-                      variant="outline"
-                      asChild
-                      className="border-2 hover:border-blue-600 hover:text-blue-600"
-                    >
-                      <Link href="/dashboard/settings">
-                        <Settings className="mr-2 h-4 w-4" />
-                        Edit Profile
-                      </Link>
-                    </Button>
-                    <Button
-                      asChild
-                      className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white"
-                    >
-                      <Link href="/dashboard/blogs/new">
-                        <Sparkles className="mr-2 h-4 w-4" />
-                        New Blog
-                      </Link>
-                    </Button>
-                  </div>
+                  {/* Logout Button */}
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="border-red-200 hover:border-red-600 hover:text-red-600 dark:border-red-900 dark:hover:border-red-500"
+                      >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        Logout
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-2xl flex items-center gap-2">
+                          <LogOut className="h-6 w-6 text-red-600" />
+                          Confirm Logout
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-base">
+                          Are you sure you want to logout from your account?
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={handleLogout}
+                          className="bg-gradient-to-r from-red-600 to-rose-600 text-white hover:from-red-700 hover:to-rose-700"
+                        >
+                          <LogOut className="mr-2 h-4 w-4" />
+                          Logout
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
 
+                {/* Stats Pills */}
                 <div className="flex flex-wrap gap-3">
                   <Badge
                     variant="secondary"
@@ -186,6 +226,7 @@ export default function ProfilePage() {
           </CardContent>
         </Card>
 
+        {/* Stats Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
           <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
             <CardContent className="pt-6">
@@ -265,6 +306,7 @@ export default function ProfilePage() {
           </Card>
         </div>
 
+        {/* Tabs for blogs */}
         <Tabs defaultValue="published" className="space-y-6">
           <TabsList className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 p-1">
             <TabsTrigger
@@ -352,6 +394,7 @@ export default function ProfilePage() {
           </TabsContent>
         </Tabs>
 
+        {/* Activity Timeline */}
         {publishedBlogs.length > 0 && (
           <Card className="mt-8 bg-white/50 backdrop-blur-sm">
             <CardHeader>
