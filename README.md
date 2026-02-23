@@ -1,36 +1,450 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WriteCraft Frontend
 
-## Getting Started
+Modern blogging platform web application built with **Next.js 16**, **React 19**, and **TypeScript**. A professional, responsive interface for reading, creating, and sharing blog posts.
 
-First, run the development server:
+## 📋 Prerequisites
+
+- **Node.js** 18+ and **npm** or **yarn**
+- **Backend API** running (see [backend README](../backend/README.md))
+- **Modern web browser** (Chrome, Firefox, Safari, Edge)
+
+## 🚀 Quick Start
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```bash
+# API Configuration (Required)
+NEXT_PUBLIC_API_URL=http://localhost:3001/api
+```
+
+### 3. Start the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📚 Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Development
+npm run dev              # Start dev server with hot reload
 
-## Learn More
+# Production
+npm run build            # Build for production
+npm run start            # Start production server
 
-To learn more about Next.js, take a look at the following resources:
+# Code Quality
+npm run lint             # Run ESLint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🏗️ Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                              # Next.js app directory
+│   ├── globals.css                   # Global styles
+│   ├── layout.tsx                    # Root layout
+│   ├── page.tsx                      # Homepage
+│   ├── login/                        # Login page
+│   ├── register/                     # Registration page
+│   ├── feed/                         # Blog feed page
+│   ├── blog/[slug]/                  # Blog detail page
+│   └── (protected)/                  # Protected routes
+│
+├── components/
+│   ├── common/                       # Shared components
+│   │   ├── navbar.tsx                # Navigation bar
+│   │   └── footer.tsx                # Footer
+│   ├── pages/                        # Page-specific components
+│   └── ui/                           # UI components (shadcn)
+│
+├── features/                         # Feature modules
+│   ├── auth/                         # Authentication
+│   ├── blogs/                        # Blog functionality
+│   ├── comments/                     # Comments feature
+│   ├── likes/                        # Likes feature
+│   └── feed/                         # Feed functionality
+│
+├── hooks/                            # Custom React hooks
+├── lib/
+│   ├── api-client.ts                 # Axios API client
+│   └── utils.ts                      # Utility functions
+├── providers/
+│   └── react-query-provider.tsx      # React Query setup
+├── store/
+│   └── auth.store.ts                 # Zustand auth store
+└── types/
+    ├── api.types.ts                  # API type definitions
+    └── global.d.ts                   # Global types
+```
 
-## Deploy on Vercel
+## 🎨 Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### User Authentication
+- **Register** - Create new account with email and password
+- **Login** - Access your account securely
+- **Protected Routes** - Some features require authentication
+- **User Profiles** - View and edit your profile
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Blog Management
+- **Create Blogs** - Write and publish blog posts
+- **Edit Blogs** - Modify existing posts
+- **Delete Blogs** - Remove your posts
+- **View Blogs** - Read blogs from the community
+
+### Interactions
+- **Like Posts** - Show appreciation for great content
+- **Comment** - Engage in discussions
+- **View Engagement** - See likes and comments count
+
+### Discovery
+- **Explore Feed** - Discover blogs from the community
+- **Search** - Find blogs by title or author
+- **Sorting** - View latest or most popular posts
+- **Pagination** - Browse through content easily
+
+### Design Features
+- **Responsive Design** - Works on all devices
+- **Dark Mode** - Comfortable reading in any lighting
+- **Modern UI** - Clean, professional interface
+- **Fast Loading** - Optimized performance
+
+## 🔧 Technology Stack
+
+### Frontend Framework
+- **Next.js 16** - App Router, Server Components, API Routes
+- **React 19** - Latest React features
+- **TypeScript** - Type-safe code
+
+### Styling
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - High-quality React components
+- **Lucide Icons** - Beautiful icon library
+
+### State Management
+- **Zustand** - Simple store for auth state
+- **React Query** - Server state management and caching
+
+### Forms & Validation
+- **React Hook Form** - Efficient form handling
+- **Zod** - TypeScript-first schema validation
+
+### Data Management
+- **Axios** - HTTP client for API calls
+- **date-fns** - Date formatting and manipulation
+
+### Other Libraries
+- **next-themes** - Dark mode support
+- **sonner** - Toast notifications
+- **jwt-decode** - JWT token parsing
+
+## 🔌 API Configuration
+
+The frontend communicates with the backend API:
+
+```
+API Base URL: http://localhost:3001/api
+```
+
+### Key API Endpoints
+
+**Authentication**
+- `POST /auth/register` - Register user
+- `POST /auth/login` - Login user
+- `POST /auth/logout` - Logout user
+
+**Blogs**
+- `GET /blogs` - List all blogs
+- `GET /blogs/:slug` - Get single blog
+- `POST /blogs` - Create blog
+- `PATCH /blogs/:id` - Update blog
+- `DELETE /blogs/:id` - Delete blog
+
+**Comments**
+- `GET /comments/blog/:blogId` - Get blog comments
+- `POST /comments` - Create comment
+- `DELETE /comments/:id` - Delete comment
+
+**Likes**
+- `POST /likes` - Like/unlike blog
+- `GET /likes/blog/:blogId` - Get likes count
+
+**Users**
+- `GET /users/:id` - Get user profile
+- `PATCH /users/:id` - Update profile
+
+## 🎯 Component Overview
+
+### Pages
+
+**Home** (`/`)
+- Hero section
+- Statistics
+- Featured blogs
+- Call-to-action
+
+**Feed** (`/feed`)
+- Search blogs
+- Filter by author
+- Sort (latest, popular)
+- Infinite scroll
+
+**Blog Detail** (`/blog/[slug]`)
+- Full blog content
+- Author information
+- Like/comment section
+- Related posts
+
+**Login** (`/login`)
+- Email/password form
+- Error handling
+- Redirect to home on success
+
+**Register** (`/register`)
+- User signup form
+- Validation
+- Auto-login after signup
+
+### Components
+
+**Navbar**
+- Logo and branding
+- Navigation links
+- Auth buttons
+- Mobile menu
+- User profile dropdown
+
+**Footer**
+- Links (explore, community)
+- Social media
+- Copyright info
+- Quick navigation
+
+**Blog Cards**
+- Author info
+- Title and summary
+- Engagement metrics
+- Quick read time
+
+## 🔐 Authentication
+
+### How It Works
+
+1. **Register** - User creates account
+2. **Login** - User receives JWT token
+3. **Store Token** - Token saved in localStorage
+4. **Include Token** - Token sent in headers for protected requests
+5. **Protected Routes** - Components check auth state
+
+### Auth State Management
+
+Uses Zustand store at `src/store/auth.store.ts`:
+
+```typescript
+useAuthStore.getState().isAuthenticated
+useAuthStore.getState().user
+useAuthStore.getState().logout()
+```
+
+## 📝 Form Handling
+
+All forms use React Hook Form with Zod validation:
+
+**Example:**
+```tsx
+const { register, handleSubmit } = useForm({
+  resolver: zodResolver(schema),
+});
+```
+
+See feature schemas at `src/features/*/[feature].schema.ts`
+
+## 🌐 Internationalization (Placeholder)
+
+Currently supports English. Structure ready for i18n expansion.
+
+## 🧪 Code Quality
+
+```bash
+npm run lint
+```
+
+Uses:
+- **ESLint** for code linting
+- **TypeScript** for type safety
+- **Prettier** (formatting via editor)
+
+## 🚀 Production Build
+
+### Build
+
+```bash
+npm run build
+```
+
+Creates optimized production build in `.next/` directory.
+
+### Start
+
+```bash
+npm start
+```
+
+Starts the production server (requires `.env.local` configuration).
+
+## 🌍 Deployment
+
+### Vercel (Recommended)
+
+1. Push to GitHub
+2. Go to [vercel.com](https://vercel.com)
+3. Connect repository
+4. Add `NEXT_PUBLIC_API_URL` environment variable
+5. Deploy!
+
+### Docker
+
+Create `Dockerfile`:
+
+```dockerfile
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+```
+
+Build and run:
+```bash
+docker build -t writecraft-frontend .
+docker run -p 3000:3000 -e NEXT_PUBLIC_API_URL=http://api:3001/api writecraft-frontend
+```
+
+### Self-hosted
+
+```bash
+npm install
+npm run build
+npm start
+```
+
+Ensure `NEXT_PUBLIC_API_URL` points to your backend.
+
+## 🐛 Troubleshooting
+
+### "Cannot find module" errors
+
+```bash
+rm -rf node_modules .next
+npm install
+```
+
+### API connection issues
+
+- Verify backend is running on port 3001
+- Check `NEXT_PUBLIC_API_URL` in `.env.local`
+- Check browser console for network errors
+
+### Build errors
+
+```bash
+npm run lint
+```
+
+Fix any TypeScript or ESLint errors.
+
+### Performance issues
+
+- Clear `.next` folder: `rm -rf .next`
+- Clear browser cache
+- Check React DevTools for unnecessary re-renders
+
+## 🎨 Styling
+
+### Tailwind CSS
+
+Classes use Tailwind utilities. Common patterns:
+
+```tsx
+<div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
+```
+
+### Dark Mode
+
+Automatically supported via `next-themes`. Toggle in theme switcher.
+
+### Custom Components
+
+shadcn/ui components located in `src/components/ui/`
+
+Add new components:
+```bash
+npx shadcn-ui@latest add [component-name]
+```
+
+## 🔗 API Client
+
+Centralized Axios client at `src/lib/api-client.ts`:
+
+```typescript
+import { apiClient } from '@/lib/api-client';
+
+const response = await apiClient.get(`/blogs?page=1`);
+```
+
+Handles:
+- Base URL configuration
+- Authentication headers
+- Error handling
+- Request/response interceptors
+
+## 📚 Hooks
+
+### Custom Hooks
+
+Located in `src/hooks/` and `src/features/*/[feature].hooks.ts`
+
+**Example Usage:**
+```typescript
+const { data, isLoading } = useFeed(page, limit);
+```
+
+## 🎯 Best Practices
+
+- Use TypeScript for type safety
+- Follow naming conventions (camelCase for files)
+- Keep components small and focused
+- Use custom hooks for logic
+- Validate all forms with Zod
+- Handle loading and error states
+- Use React Query for caching
+
+## 📄 License
+
+Unlicensed - All rights reserved.
+
+## 🔗 Links
+
+- [Next.js Docs](https://nextjs.org/docs)
+- [React Docs](https://react.dev)
+- [Tailwind Docs](https://tailwindcss.com/docs)
+- [shadcn/ui](https://ui.shadcn.com)
+- [React Query Docs](https://tanstack.com/query/latest)

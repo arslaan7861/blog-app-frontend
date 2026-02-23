@@ -174,7 +174,7 @@ export function HomepageClient() {
               asChild
               className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 font-semibold"
             >
-              <Link href="/dashboard/create">
+              <Link href="/dashboard/blogs/new">
                 <PenSquare className="mr-2 h-5 w-5" />
                 Write New Post
               </Link>
