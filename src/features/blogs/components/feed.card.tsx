@@ -34,9 +34,6 @@ export function FeedCard({ item }: FeedCardProps) {
       <CardHeader>
         <div className="flex items-start gap-4">
           <Avatar className="h-10 w-10">
-            <AvatarImage
-              src={`https://avatar.vercel.sh/${item.author.email}`}
-            />
             <AvatarFallback>{getInitials(item.author.name)}</AvatarFallback>
           </Avatar>
           <div className="flex-1">

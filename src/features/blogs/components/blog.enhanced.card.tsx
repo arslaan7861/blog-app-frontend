@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
-import { Heart, MessageCircle, Bookmark, Share2 } from "lucide-react";
+import { Heart, MessageCircle } from "lucide-react";
 import { FeedItem } from "@/features/blogs/blog.types";
 
 import {
@@ -12,7 +12,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 interface EnhancedBlogCardProps {
@@ -29,97 +28,60 @@ export function EnhancedBlogCard({ blog }: EnhancedBlogCardProps) {
       .slice(0, 2);
   };
 
-  // Generate a random gradient for card background
-  const gradients = [
-    "from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20",
-    "from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20",
-    "from-indigo-50 to-blue-50 dark:from-indigo-950/20 dark:to-blue-950/20",
-    "from-blue-50 to-sky-50 dark:from-blue-950/20 dark:to-sky-950/20",
-  ];
-
-  const gradientIndex =
-    blog.id.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0) %
-    gradients.length;
-  const gradient = gradients[gradientIndex];
-
   return (
-    <Card
-      className={`group relative overflow-hidden bg-gradient-to-br ${gradient} border-0 shadow-lg hover:shadow-xl transition-all duration-300`}
-    >
-      {/* Decorative Elements */}
-      <div className="absolute inset-0 bg-grid-blue-100/50 dark:bg-grid-blue-900/20 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" />
-      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/50 dark:bg-blue-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500" />
-      <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-200/50 dark:bg-indigo-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500" />
-
-      <CardHeader className="relative">
-        <div className="flex items-start justify-between">
+    <Card className="h-full flex flex-col overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-lg transition-all duration-300 group">
+      <CardHeader className="pb-3 border-b border-gray-100 dark:border-gray-800">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 ring-2 ring-white dark:ring-gray-800">
+            <Avatar className="h-10 w-10">
               <AvatarImage
-                src={`https://avatar.vercel.sh/${blog.author.email}`}
+                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${blog.author.name}`}
               />
-              <AvatarFallback className="bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+              <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-semibold">
                 {getInitials(blog.author.name)}
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-semibold text-gray-900 dark:text-gray-100">
+              <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">
                 {blog.author.name}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {formatDistanceToNow(new Date(blog.createdAt), {
                   addSuffix: true,
                 })}
               </p>
             </div>
           </div>
-          <Badge
-            variant="secondary"
-            className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm"
-          >
-            {blog.likesCount} likes
-          </Badge>
         </div>
       </CardHeader>
 
       <Link href={`/blog/${blog.slug}`}>
-        <CardContent className="relative cursor-pointer">
-          <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        <CardContent className="pt-4 cursor-pointer flex-1 flex flex-col">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 line-clamp-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
             {blog.title}
           </h3>
-          <p className="text-gray-600 dark:text-gray-300 line-clamp-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4">
             {blog.summary}
           </p>
         </CardContent>
       </Link>
 
-      <CardFooter className="relative flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="gap-1 hover:text-red-500"
-          >
+      <CardFooter className="pt-0 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+          <button className="flex items-center gap-1 hover:text-red-500 transition-colors">
             <Heart className="h-4 w-4" />
             <span>{blog.likesCount}</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="gap-1 hover:text-blue-500"
-          >
+          </button>
+          <button className="flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             <MessageCircle className="h-4 w-4" />
-            <span>{blog.commentsCount}</span>
-          </Button>
+            <span>{blog.commentsCount || 0}</span>
+          </button>
         </div>
-        <div className="flex gap-1">
-          <Button variant="ghost" size="icon" className="h-8 w-8">
-            <Bookmark className="h-4 w-4" />
+        <Link href={`/blog/${blog.slug}`}>
+          <Button variant="ghost" size="sm" className="gap-1">
+            <span className="text-xs">Read More</span>
           </Button>
-          <Button variant="ghost" size="icon" className="h-8 w-8">
-            <Share2 className="h-4 w-4" />
-          </Button>
-        </div>
+        </Link>
       </CardFooter>
     </Card>
   );

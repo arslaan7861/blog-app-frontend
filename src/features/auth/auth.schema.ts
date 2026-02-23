@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Password regex: at least one letter and one number
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)/;
 
 export const loginSchema = z.object({

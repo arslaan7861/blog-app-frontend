@@ -6,20 +6,14 @@ import { useAuthStore } from "@/store/auth.store";
 import { formatDistanceToNow } from "date-fns";
 import {
   ArrowLeft,
-  Heart,
   MessageCircle,
-  Calendar,
-  User,
   Sparkles,
   Share2,
   Bookmark,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 import { notFound } from "next/navigation";
 import { BlogDetailSkeleton } from "./blog.details.skeleton";
 import { LikeButton } from "@/features/likes/component/like.button";
@@ -51,160 +45,144 @@ export function BlogDetailClient({ slug }: BlogDetailClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900">
-      {/* Header */}
-      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link
-              href="/"
-              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
-            >
-              BlogPlatform
-            </Link>
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      <div className="border-b border-gray-200 dark:border-gray-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mb-6 text-sm font-medium"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back
+          </Link>
 
-            <div className="flex items-center gap-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4 leading-tight">
+            {blog.title}
+          </h1>
+
+          <div className="flex items-center gap-6 mt-6 text-gray-600 dark:text-gray-400 text-sm">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-10 w-10">
+                <AvatarImage
+                  src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${blog.author.name}`}
+                />
+                <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-semibold">
+                  {getInitials(blog.author.name)}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-semibold text-gray-900 dark:text-gray-100">
+                  {blog.author.name}
+                </p>
+                <p className="text-gray-500 dark:text-gray-400">
+                  {formatDistanceToNow(new Date(blog.createdAt), {
+                    addSuffix: true,
+                  })}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-blue-500" />
+              <span>
+                {Math.ceil(blog.content.split(" ").length / 200)} min read
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <article className="mb-12">
+          <div className="prose-custom max-w-none dark:prose-invert">
+            <div className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+              {blog.content}
+            </div>
+          </div>
+        </article>
+
+        <div className="border-t border-gray-200 dark:border-gray-800 border-b py-6 mb-12">
+          <div className="flex items-center justify-between flex-wrap gap-6">
+            <div className="flex items-center gap-6">
               {isAuthenticated ? (
                 <>
-                  <Button variant="ghost" asChild>
-                    <Link href="/dashboard">Dashboard</Link>
-                  </Button>
-                  <Avatar className="h-8 w-8 ring-2 ring-blue-100">
-                    <AvatarImage
-                      src={`https://avatar.vercel.sh/${user?.email}`}
-                    />
-                    <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
-                      {user?.name ? getInitials(user.name) : "U"}
-                    </AvatarFallback>
-                  </Avatar>
+                  <LikeButton
+                    blogId={blog.id}
+                    initialLiked={blog.likedByUser || false}
+                    initialCount={blog.likesCount || 0}
+                  />
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 cursor-pointer">
+                    <MessageCircle className="h-5 w-5" />
+                    <span className="font-medium">
+                      {blog.commentsCount || 0}
+                    </span>
+                  </div>
                 </>
               ) : (
-                <>
-                  <Button variant="ghost" asChild>
-                    <Link href="/login">Sign In</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white"
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
+                  <Link
+                    href="/login"
+                    className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
                   >
-                    <Link href="/register">Get Started</Link>
-                  </Button>
-                </>
+                    Sign in
+                  </Link>{" "}
+                  to engage with this post
+                </p>
+              )}
+            </div>
+
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="gap-2">
+                <Share2 className="h-4 w-4" />
+                Share
+              </Button>
+              <Button variant="outline" size="sm" className="gap-2">
+                <Bookmark className="h-4 w-4" />
+                Save
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6 mb-12 border border-gray-200 dark:border-gray-800">
+          <div className="flex items-start gap-4">
+            <Avatar className="h-16 w-16">
+              <AvatarImage
+                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${blog.author.name}`}
+              />
+              <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-semibold text-lg">
+                {getInitials(blog.author.name)}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                {blog.author.name}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                Author • {blog.isPublished ? "Published author" : "New writer"}
+              </p>
+              {isAuthenticated && user?.id !== blog.author.id && (
+                <Button size="sm" variant="outline">
+                  Follow
+                </Button>
               )}
             </div>
           </div>
         </div>
-      </header>
 
-      {/* Main Content */}
-      <main className="max-w-4xl mx-auto py-8 px-4">
-        <Button variant="ghost" asChild className="mb-6 group">
-          <Link href="/">
-            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-            Back to Home
-          </Link>
-        </Button>
-
-        <article className="relative">
-          {/* Background Decoration */}
-          <div className="absolute inset-0 bg-grid-blue-100/50 dark:bg-grid-blue-900/20 [mask-image:radial-gradient(ellipse_at_center,white,transparent)] -z-10" />
-
-          <Card className="overflow-hidden bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-2xl">
-            <CardHeader className="pb-4">
-              {/* Author Info */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <Avatar className="h-14 w-14 ring-4 ring-blue-100 dark:ring-blue-900">
-                    <AvatarImage
-                      src={`https://avatar.vercel.sh/${blog.author.email}`}
-                    />
-                    <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
-                      {getInitials(blog.author.name)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-xl font-semibold">{blog.author.name}</p>
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
-                      <Calendar className="h-4 w-4" />
-                      <time dateTime={blog.createdAt}>
-                        {formatDistanceToNow(new Date(blog.createdAt), {
-                          addSuffix: true,
-                        })}
-                      </time>
-                    </div>
-                  </div>
-                </div>
-
-                <Badge
-                  variant="secondary"
-                  className="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 px-4 py-1"
-                >
-                  {blog.isPublished ? "Published" : "Draft"}
-                </Badge>
-              </div>
-
-              {/* Title */}
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                {blog.title}
-              </h1>
-
-              {/* Engagement Bar */}
-              <div className="flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-4">
-                  {isAuthenticated && (
-                    <LikeButton
-                      blogId={blog.id}
-                      initialLiked={blog.likedByUser || false}
-                      initialCount={blog.likesCount || 0}
-                    />
-                  )}
-                  <div className="flex items-center gap-2 text-gray-500">
-                    <MessageCircle className="h-5 w-5" />
-                    <span className="font-medium">
-                      {blog.commentsCount || 0} comments
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <Share2 className="h-4 w-4" />
-                    Share
-                  </Button>
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <Bookmark className="h-4 w-4" />
-                    Save
-                  </Button>
-                </div>
-              </div>
-            </CardHeader>
-
-            <CardContent>
-              <Separator className="my-8" />
-
-              {/* Blog Content */}
-              <div className="prose prose-lg max-w-none dark:prose-invert">
-                <div className="whitespace-pre-wrap text-gray-700 dark:text-gray-300 leading-relaxed">
-                  {blog.content}
-                </div>
-              </div>
-
-              {/* Reading Time Estimate */}
-              <div className="mt-8 flex items-center gap-2 text-sm text-gray-500">
-                <Sparkles className="h-4 w-4 text-blue-500" />
-                <span>
-                  {Math.ceil(blog.content.split(" ").length / 200)} min read
-                </span>
-              </div>
-
-              <Separator className="my-8" />
-
-              {/* Comments Section */}
-              <CommentsSection blogId={blog.id} />
-            </CardContent>
-          </Card>
-        </article>
+        <CommentsSection blogId={blog.id} />
       </main>
+
+      <div className="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 py-12 mt-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+            More from {blog.author.name}
+          </h2>
+          <Button asChild className="mt-4">
+            <Link href={`/feed?author=${blog.author.id}`}>View all posts</Link>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

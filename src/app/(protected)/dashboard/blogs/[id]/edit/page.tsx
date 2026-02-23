@@ -120,9 +120,7 @@ export default function EditBlogPage({ params }: EditBlogPageProps) {
           </p>
         </div>
 
-        {/* Main Form Card */}
         <Card className="relative overflow-hidden bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-2xl">
-          {/* Decorative Elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-200/20 dark:bg-indigo-500/10 rounded-full blur-3xl" />
 
@@ -143,7 +141,6 @@ export default function EditBlogPage({ params }: EditBlogPageProps) {
           </CardContent>
         </Card>
 
-        {/* Info Card */}
         <Card className="mt-6 bg-blue-50/50 dark:bg-blue-950/20 border-0">
           <CardContent className="pt-6">
             <div className="flex items-start gap-3">

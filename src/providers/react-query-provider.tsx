@@ -21,7 +21,6 @@ export default function ReactQueryProvider({
 }: {
   children: React.ReactNode;
 }) {
-  // prevents recreation on re-render
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -29,7 +28,7 @@ export default function ReactQueryProvider({
           queries: {
             retry: 1,
 
-            staleTime: 1000 * 60 * 2, // 2 min cache
+            staleTime: 1000 * 60 * 2,
 
             refetchOnWindowFocus: false,
           },

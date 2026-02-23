@@ -53,10 +53,8 @@ export function BlogCard({ blog, onDelete }: BlogCardProps) {
 
   return (
     <Card className="group relative overflow-hidden bg-white dark:bg-gray-800 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-      {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
-      {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500" />
       <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-200/20 dark:bg-indigo-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500" />
 
@@ -64,9 +62,6 @@ export function BlogCard({ blog, onDelete }: BlogCardProps) {
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             <Avatar className="h-8 w-8 ring-2 ring-blue-100 dark:ring-blue-900">
-              <AvatarImage
-                src={`https://avatar.vercel.sh/${blog.author.email}`}
-              />
               <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-xs">
                 {getInitials(blog.author.name)}
               </AvatarFallback>

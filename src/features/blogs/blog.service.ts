@@ -10,7 +10,6 @@ import {
 } from "./blog.types";
 
 export const blogsService = {
-  // Private endpoints (dashboard)
   getUserBlogs: async (): Promise<Blog[]> => {
     const response = await apiClient.get<Blog[]>("/blogs");
     return response.data;
@@ -35,7 +34,6 @@ export const blogsService = {
     await apiClient.delete(`/blogs/${id}`);
   },
 
-  // Public endpoints
   getFeed: async (
     page: number = 1,
     limit: number = 10,
@@ -76,7 +74,6 @@ export const blogsService = {
   },
 };
 
-// Helper to extract error messages
 export const getBlogErrorMessage = (error: unknown): string => {
   const axiosError = error as any;
 

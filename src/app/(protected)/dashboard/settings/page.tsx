@@ -32,10 +32,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -70,7 +68,6 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
       <div className="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        {/* Header with gradient */}
         <div className="mb-8 sticky top-0  z-10 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
           <div className="flex items-center gap-3 mb-2">
             <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
@@ -86,7 +83,6 @@ export default function SettingsPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar */}
           <div className="lg:col-span-1">
             <Card className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-xl sticky top-24">
               <CardContent className="pt-6">
@@ -132,11 +128,8 @@ export default function SettingsPage() {
             </Card>
           </div>
 
-          {/* Main Content */}
           <div className="lg:col-span-3 space-y-6">
-            {/* Profile Information */}
             <Card className="relative overflow-hidden bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-xl">
-              {/* Decorative Elements */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-3xl" />
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-200/20 dark:bg-indigo-500/10 rounded-full blur-3xl" />
 
@@ -157,12 +150,8 @@ export default function SettingsPage() {
               </CardHeader>
 
               <CardContent className="relative space-y-6">
-                {/* Avatar Section */}
                 <div className="flex items-center gap-6">
                   <Avatar className="h-20 w-20 ring-4 ring-blue-100 dark:ring-blue-900">
-                    <AvatarImage
-                      src={`https://avatar.vercel.sh/${user?.email}`}
-                    />
                     <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-xl">
                       {user?.name ? getInitials(user.name) : "U"}
                     </AvatarFallback>
@@ -241,7 +230,6 @@ export default function SettingsPage() {
               </CardFooter>
             </Card>
 
-            {/* Change Password */}
             <Card className="relative overflow-hidden bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-xl">
               <CardHeader>
                 <div className="flex items-center gap-3">
@@ -343,7 +331,6 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                {/* Password Requirements */}
                 <div className="bg-blue-50 dark:bg-blue-950/50 rounded-lg p-4">
                   <p className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-2">
                     Password requirements:
@@ -377,7 +364,6 @@ export default function SettingsPage() {
               </CardFooter>
             </Card>
 
-            {/* Notifications */}
             <Card className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-xl">
               <CardHeader>
                 <div className="flex items-center gap-3">
@@ -456,7 +442,6 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
 
-            {/* Appearance */}
             <Card className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-xl">
               <CardHeader>
                 <div className="flex items-center gap-3">
@@ -502,7 +487,6 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
 
-            {/* Privacy */}
             <Card className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-xl">
               <CardHeader>
                 <div className="flex items-center gap-3">
@@ -565,7 +549,6 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
 
-            {/* Danger Zone */}
             <Card className="border-2 border-red-200 dark:border-red-900 bg-red-50/50 dark:bg-red-950/20">
               <CardHeader>
                 <div className="flex items-center gap-3">

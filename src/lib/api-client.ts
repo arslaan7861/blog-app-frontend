@@ -9,9 +9,6 @@ const apiClient = axios.create({
   },
 });
 
-// ---------- REQUEST INTERCEPTOR ----------
-// Automatically attach JWT
-
 apiClient.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().token;
@@ -26,16 +23,12 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-// ---------- RESPONSE INTERCEPTOR ----------
-// Handle global API errors
-
 apiClient.interceptors.response.use(
   (response) => response,
 
   (error) => {
     const status = error?.response?.status;
 
-    // Unauthorized → logout user
     if (status === 401) {
       useAuthStore.getState().logout();
 
@@ -44,7 +37,6 @@ apiClient.interceptors.response.use(
       }
     }
 
-    // Rate limit exceeded
     if (status === 429) {
       console.warn("Rate limit exceeded");
     }

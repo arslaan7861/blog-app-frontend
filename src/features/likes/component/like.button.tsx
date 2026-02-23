@@ -28,7 +28,6 @@ export function LikeButton({
   const likeMutation = useLikeBlog(blogId);
   const unlikeMutation = useUnlikeBlog(blogId);
 
-  // Sync with server data when available
   useEffect(() => {
     if (status) {
       setOptimisticLiked(status.liked);
@@ -42,14 +41,12 @@ export function LikeButton({
       return;
     }
 
-    // Optimistic update
     if (optimisticLiked) {
       setOptimisticLiked(false);
       setOptimisticCount((prev) => Math.max(prev - 1, 0));
       try {
         await unlikeMutation.mutateAsync();
       } catch {
-        // Revert on error
         setOptimisticLiked(true);
         setOptimisticCount((prev) => prev + 1);
       }
@@ -59,7 +56,6 @@ export function LikeButton({
       try {
         await likeMutation.mutateAsync();
       } catch {
-        // Revert on error
         setOptimisticLiked(false);
         setOptimisticCount((prev) => Math.max(prev - 1, 0));
       }

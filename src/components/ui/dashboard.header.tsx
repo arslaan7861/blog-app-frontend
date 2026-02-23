@@ -12,7 +12,6 @@ import {
   LogOut,
   Settings,
   Home,
-  Sparkles,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -24,7 +23,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export function DashboardHeader() {
   const pathname = usePathname();
@@ -100,9 +99,6 @@ export function DashboardHeader() {
                   className="relative h-10 w-10 rounded-full p-0"
                 >
                   <Avatar className="h-10 w-10 ring-2 ring-blue-100 dark:ring-blue-900">
-                    <AvatarImage
-                      src={`https://avatar.vercel.sh/${user?.email}`}
-                    />
                     <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
                       {user?.name ? getInitials(user.name) : "U"}
                     </AvatarFallback>

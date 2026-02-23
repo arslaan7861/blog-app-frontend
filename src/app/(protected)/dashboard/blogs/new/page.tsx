@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCreateBlog } from "@/features/blogs/blog.hooks";
 import { CreateBlogInput } from "@/features/blogs/blog.schema";
@@ -17,7 +16,6 @@ import {
 } from "@/components/ui/card";
 
 export default function NewBlogPage() {
-  const router = useRouter();
   const createBlogMutation = useCreateBlog();
 
   const onSubmit = async (data: CreateBlogInput) => {
@@ -27,7 +25,6 @@ export default function NewBlogPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
       <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        {/* Header with gradient */}
         <div className="mb-8">
           <Button
             variant="ghost"
@@ -53,9 +50,7 @@ export default function NewBlogPage() {
           </p>
         </div>
 
-        {/* Main Form Card */}
         <Card className="relative overflow-hidden bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-2xl">
-          {/* Decorative Elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-200/20 dark:bg-indigo-500/10 rounded-full blur-3xl" />
 
@@ -75,7 +70,6 @@ export default function NewBlogPage() {
           </CardContent>
         </Card>
 
-        {/* Tips Card */}
         <Card className="mt-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-0">
           <CardContent className="pt-6">
             <div className="flex items-start gap-4">

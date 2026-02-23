@@ -1,7 +1,3 @@
-// ================================================================================
-// ERROR TYPES
-// ================================================================================
-
 export interface ApiError {
   statusCode: number;
   timestamp: string;
@@ -24,10 +20,6 @@ export interface RateLimitError {
   error: "Rate Limit Exceeded";
   message: string;
 }
-
-// ================================================================================
-// AUTH TYPES
-// ================================================================================
 
 export interface User {
   id: string;
@@ -52,14 +44,10 @@ export interface RegisterCredentials {
   name: string;
 }
 
-// ================================================================================
-// BLOG TYPES
-// ================================================================================
-
 export interface BlogAuthor {
   id: string;
   name: string;
-  email?: string; // Only included in some responses
+  email?: string;
 }
 
 export interface Blog {
@@ -85,10 +73,6 @@ export interface UpdateBlogDto {
   content?: string;
   isPublished?: boolean;
 }
-
-// ================================================================================
-// PUBLIC FEED TYPES
-// ================================================================================
 
 export interface FeedItem {
   id: string;
@@ -118,10 +102,6 @@ export interface FeedResponse {
 }
 
 export interface PopularBlogsResponse extends Array<FeedItem> {}
-
-// ================================================================================
-// SINGLE BLOG (PUBLIC) TYPES
-// ================================================================================
 
 export interface PublicBlogComment {
   id: string;
@@ -158,14 +138,10 @@ export interface PublicBlogResponse {
   };
   likesCount: number;
   commentsCount: number;
-  likedByUser?: boolean; // Only included if authenticated
-  comments?: PublicBlogComment[]; // Only included if ?comments=true
-  commentsMeta?: PublicBlogCommentsMeta; // Only included if ?comments=true
+  likedByUser?: boolean;
+  comments?: PublicBlogComment[];
+  commentsMeta?: PublicBlogCommentsMeta;
 }
-
-// ================================================================================
-// COMMENT TYPES
-// ================================================================================
 
 export interface Comment {
   id: string;
@@ -198,10 +174,6 @@ export interface CommentsResponse {
   };
 }
 
-// ================================================================================
-// LIKE TYPES
-// ================================================================================
-
 export interface LikeStatus {
   liked: boolean;
   likesCount: number;
@@ -224,20 +196,12 @@ export interface BlogLikesResponse {
   }>;
 }
 
-// ================================================================================
-// HEALTH TYPES
-// ================================================================================
-
 export interface HealthResponse {
   status: "ok";
   timestamp: string;
   database: "connected";
   service: "blog-platform-api";
 }
-
-// ================================================================================
-// PAGINATION TYPES
-// ================================================================================
 
 export interface PaginationParams {
   page?: number;

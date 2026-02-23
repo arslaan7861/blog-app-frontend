@@ -39,7 +39,6 @@ export default function DashboardPage() {
 
   const recentBlogs = blogs?.slice(0, 3) || [];
 
-  // Calculate completion percentage for stats
   const completionPercentage = blogs?.length
     ? Math.round((publishedCount / blogs.length) * 100)
     : 0;
@@ -47,7 +46,6 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        {/* Welcome Section */}
         <div className="mb-8">
           <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 mb-2">
             <Sparkles className="h-5 w-5" />
@@ -86,7 +84,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Stats Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
           <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
             <CardContent className="pt-6">
@@ -160,7 +157,6 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        {/* Recent Activity & Quick Actions */}
         <div className="grid gap-6 lg:grid-cols-3 mb-8">
           {/* Recent Blogs */}
           <div className="lg:col-span-2 space-y-4">
@@ -210,7 +206,6 @@ export default function DashboardPage() {
             )}
           </div>
 
-          {/* Quick Actions & Tips */}
           <div className="space-y-4">
             <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-0">
               <CardHeader>

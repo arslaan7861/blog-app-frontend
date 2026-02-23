@@ -21,7 +21,6 @@ export const blogKeys = {
   bySlug: (slug: string) => [...blogKeys.details(), "slug", slug] as const,
 };
 
-// Queries
 export const useUserBlogs = () => {
   return useQuery({
     queryKey: blogKeys.userBlogs(),
@@ -77,7 +76,6 @@ export const usePublicBlog = (
   });
 };
 
-// Mutations
 export const useCreateBlog = () => {
   const queryClient = useQueryClient();
   const router = useRouter();

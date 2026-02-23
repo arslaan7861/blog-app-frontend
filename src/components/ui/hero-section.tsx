@@ -40,19 +40,16 @@ export function HeroSection({
             <span>Share Your Stories with the World</span>
           </div>
 
-          {/* Main Title with Gradient */}
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
             <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
               {title}
             </span>
           </h1>
 
-          {/* Subtitle */}
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             {subtitle}
           </p>
 
-          {/* CTA Buttons */}
           {showCta && (
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               {!isAuthenticated ? (

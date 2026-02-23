@@ -60,19 +60,16 @@ export default function ProfilePage() {
     0,
   );
 
-  // Calculate engagement rate
-  const totalViews = totalLikes * 10; // Approximate views based on likes
+  const totalViews = totalLikes * 10;
   const engagementRate =
     totalViews > 0 ? Math.round((totalLikes / totalViews) * 100) : 0;
 
-  // Get join date (mock for now - in real app would come from user object)
-  const joinDate = new Date(2024, 0, 15); // Example date
+  const joinDate = new Date(2024, 0, 15);
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
         <div className="max-w-7xl mx-auto py-8 px-4">
-          {/* Profile Header Skeleton */}
           <Card className="mb-8 overflow-hidden">
             <CardContent className="pt-6">
               <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
@@ -90,14 +87,12 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
 
-          {/* Stats Skeleton */}
           <div className="grid gap-6 md:grid-cols-4 mb-8">
             {[1, 2, 3, 4].map((i) => (
               <Skeleton key={i} className="h-24 rounded-lg" />
             ))}
           </div>
 
-          {/* Tabs Skeleton */}
           <Skeleton className="h-10 w-64 mb-6" />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => (
@@ -112,15 +107,12 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        {/* Profile Header */}
         <Card className="relative overflow-hidden mb-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-0 shadow-xl">
-          {/* Decorative Elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/20 dark:bg-blue-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-200/20 dark:bg-indigo-500/10 rounded-full blur-3xl" />
 
           <CardContent className="relative pt-8">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
-              {/* Avatar with ring */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur-md opacity-50 animate-pulse" />
                 <Avatar className="h-28 w-28 ring-4 ring-white dark:ring-gray-800 relative">
@@ -166,7 +158,6 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
-                {/* Stats Pills */}
                 <div className="flex flex-wrap gap-3">
                   <Badge
                     variant="secondary"
@@ -195,7 +186,6 @@ export default function ProfilePage() {
           </CardContent>
         </Card>
 
-        {/* Stats Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
           <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
             <CardContent className="pt-6">
@@ -275,7 +265,6 @@ export default function ProfilePage() {
           </Card>
         </div>
 
-        {/* Tabs for blogs */}
         <Tabs defaultValue="published" className="space-y-6">
           <TabsList className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 p-1">
             <TabsTrigger
@@ -363,7 +352,6 @@ export default function ProfilePage() {
           </TabsContent>
         </Tabs>
 
-        {/* Activity Timeline (Optional) */}
         {publishedBlogs.length > 0 && (
           <Card className="mt-8 bg-white/50 backdrop-blur-sm">
             <CardHeader>

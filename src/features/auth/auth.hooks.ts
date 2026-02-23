@@ -43,7 +43,6 @@ export const useLogout = () => {
   };
 };
 
-// Helper to extract error messages
 export const getAuthErrorMessage = (error: unknown): string => {
   const axiosError = error as AxiosError<{
     message: string | Record<string, string[]>;
@@ -60,7 +59,6 @@ export const getAuthErrorMessage = (error: unknown): string => {
   }
 
   if (typeof message === "object") {
-    // Handle validation errors
     const errors = Object.values(message).flat();
     return errors[0] || "Validation failed";
   }
