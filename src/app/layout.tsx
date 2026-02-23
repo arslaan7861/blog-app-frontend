@@ -35,7 +35,7 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
-          <Toaster richColors position="top-right" />
+          <Toaster theme="light" richColors position="top-right" />
         </ReactQueryProvider>
       </body>
     </html>
