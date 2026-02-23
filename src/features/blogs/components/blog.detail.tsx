@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePublicBlog } from "@/features/blogs/blog.hooks";
 import { useAuthStore } from "@/store/auth.store";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import {
   ArrowLeft,
   MessageCircle,

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import { Edit, Eye, Trash2, Heart, MessageCircle, Clock } from "lucide-react";
 
 import {

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePopularBlogs } from "@/features/blogs/blog.hooks";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import { Heart, MessageCircle, TrendingUp } from "lucide-react";
 
 import {

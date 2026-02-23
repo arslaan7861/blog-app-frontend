@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import { Heart, MessageCircle } from "lucide-react";
 import { FeedItem } from "@/features/blogs/blog.types";
 

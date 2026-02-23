@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import { Comment } from "../comment.types";
 import { useAuthStore } from "@/store/auth.store";
 import { useDeleteComment, useUpdateComment } from "../comment.hooks";
