@@ -1,6 +1,6 @@
-import { HomepageServer } from "@/components/pages/homepage-server";
+import { HomepageServer } from "@/components/homepage/homepage-server";
 import { Suspense } from "react";
-import { HomepageLoadingSkeleton } from "@/components/pages/homepage-skeleton";
+import { HomepageLoadingSkeleton } from "@/components/homepage/homepage-skeleton";
 
 export const revalidate = 30;
 

@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { FeedItem } from "@/features/blogs/blog.types";
 
 interface FeedPageContentProps {
-  initialBlogs: FeedItem[];
+  initialBlogs?: FeedItem[];
 }
 
 export function FeedPageContent({ initialBlogs = [] }: FeedPageContentProps) {

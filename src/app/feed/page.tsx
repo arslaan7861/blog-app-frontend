@@ -1,7 +1,7 @@
 import { blogsServiceServer } from "@/features/blogs/blog.service.server";
 import { Suspense } from "react";
-import { FeedPageSkeleton } from "./feed-skeleton";
-import { FeedPageClientComponent } from "./feed-client";
+import { FeedPageSkeleton } from "../../components/feed/feed-skeleton";
+import { FeedPageClientComponent } from "../../components/feed/feed-client";
 
 export const revalidate = 30;
 
